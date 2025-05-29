@@ -1,0 +1,139 @@
+create database	bodega;
+
+
+use bodega;
+
+CREATE TABLE `Comuna` (
+  `idComuna` INT PRIMARY KEY,
+  `nombre` VARCHAR(15) NOT NULL
+);
+
+CREATE TABLE `Cliente` (
+  `rut` VARCHAR(12) PRIMARY KEY,
+  `nombre` VARCHAR(30) NOT NULL,
+  `telefono` VARCHAR(15) NOT NULL,
+  `Email` VARCHAR(30) NOT NULL,
+  `idComuna` INT NOT NULL,
+   UNIQUE (`Email`),
+  CONSTRAINT `fk_cliente_comuna` FOREIGN KEY (`idComuna`) REFERENCES `Comuna` (`idComuna`),
+  CONSTRAINT `fk_cliente_usuario` FOREIGN KEY (`Email`) REFERENCES `Usuario` (`Email`)
+);
+
+CREATE TABLE `Producto` (
+  `idProducto` VARCHAR(30) PRIMARY KEY,
+  `nombre` VARCHAR(30) NOT NULL,
+  `precio` INT NOT NULL,
+  `stock` INT NOT NULL
+);
+
+CREATE TABLE `Venta` (
+  `idDocumento` INT PRIMARY KEY,
+  `fecha` DATE NOT NULL,
+  `rutCliente` VARCHAR(12) NOT NULL,
+  `tipoDoc` VARCHAR(2) NOT NULL,
+  `idTrabajador` INT NOT NULL,
+  `estado` VARCHAR(10) NOT NULL,
+  CONSTRAINT `fk_venta_cliente` FOREIGN KEY (`rutCliente`) REFERENCES `Cliente` (`rut`),
+  CONSTRAINT `fk_venta_trabajador` FOREIGN KEY (`idTrabajador`) REFERENCES `Trabajador` (`idTrabajador`)
+);
+
+CREATE TABLE `Detalle` (
+  `idProducto` VARCHAR(30) NOT NULL,
+  `idDocumento` INT NOT NULL,
+  `cantidad` INT NOT NULL,
+  `metodoPago` VARCHAR(30) NOT NULL,
+  CONSTRAINT `fk_detalle_producto` FOREIGN KEY (`idProducto`) REFERENCES `Producto` (`idProducto`),
+  CONSTRAINT `fk_detalle_venta` FOREIGN KEY (`idDocumento`) REFERENCES `Venta` (`idDocumento`)
+);
+
+CREATE TABLE `Trabajador` (
+  `idTrabajador` INT PRIMARY KEY,
+  `Rut` VARCHAR(12),
+  `Nombre` VARCHAR(30) NOT NULL,
+  `Apellido` VARCHAR(30) NOT NULL,
+  `idComuna` INT NOT NULL,
+  `Email` VARCHAR(30) NOT NULL,
+  CONSTRAINT `fk_trabajador_comuna` FOREIGN KEY (`idComuna`) REFERENCES `Comuna` (`idComuna`),
+  CONSTRAINT `fk_trabajador_usuario` FOREIGN KEY (`Email`) REFERENCES `Usuario` (`Email`)
+);
+
+CREATE TABLE `Cargo` (
+  `idCargo` INT PRIMARY KEY,
+  `Nombre` VARCHAR(30) NOT NULL,
+  `idTrabajador` INT NOT NULL,
+  CONSTRAINT `fk_cargo_trabajador` FOREIGN KEY (`idTrabajador`) REFERENCES `Trabajador` (`idTrabajador`)
+);
+
+CREATE TABLE `Usuario` (
+  `idUsuario` INT PRIMARY KEY,
+  `Email` VARCHAR(30) NOT NULL,
+  `Contraseña` VARCHAR(30) NOT NULL,
+  UNIQUE (`Email`)
+);
+
+
+-- Insertar las comunas relacionadas a Santiago de Chile en la tabla Comuna
+INSERT INTO `Comuna` (`idComuna`, `nombre`) VALUES
+(1, 'Santiago Centro'),     -- Comuna 1: Santiago Centro
+(2, 'Providencia'),         -- Comuna 2: Providencia
+(3, 'Las Condes'),          -- Comuna 3: Las Condes
+(4, 'Ñuñoa'),               -- Comuna 4: Ñuñoa
+(5, 'La Florida');          -- Comuna 5: La Florida
+
+-- Insertar trabajadores en la tabla Trabajador
+INSERT INTO `Trabajador` (`idTrabajador`, `Rut`, `Nombre`, `Apellido`, `idComuna`, `Email`) VALUES
+(1, '12345678-9', 'Juan', 'Pérez', 1, 'juan.perez@email.com'),   -- Trabajador 1
+(2, '98765432-1', 'Ana', 'González', 2, 'ana.gonzalez@email.com'),  -- Trabajador 2
+(3, '45678901-2', 'Carlos', 'Ramírez', 3, 'carlos.ramirez@email.com'); -- Trabajador 3
+
+-- Insertar los usuarios correspondientes
+INSERT INTO `Usuario` (`idUsuario`, `Email`, `Contraseña`) VALUES
+(1, 'juan.perez@email.com', 'password123'),    -- Usuario 1
+(2, 'ana.gonzalez@email.com', 'password123'),  -- Usuario 2
+(3, 'carlos.ramirez@email.com', 'password123'); -- Usuario 3
+
+-- Insertar los usuarios (si no existen)
+INSERT INTO `Usuario` (`idUsuario`, `Email`, `Contraseña`) VALUES
+(4, 'cliente1@email.com', 'password123'),  -- Usuario 1 para cliente 1
+(5, 'cliente2@email.com', 'password123'),  -- Usuario 2 para cliente 2
+(6, 'cliente3@email.com', 'password123');  -- Usuario 3 para cliente 3
+
+-- Insertar clientes en la tabla Cliente
+INSERT INTO `Cliente` (`rut`, `nombre`, `telefono`, `Email`, `idComuna`) VALUES
+('11111111-1', 'Pedro López', '987654321', 'cliente1@email.com', 1),  -- Cliente 1
+('22222222-2', 'María Fernández', '912345678', 'cliente2@email.com', 2), -- Cliente 2
+('33333333-3', 'José Martínez', '923456789', 'cliente3@email.com', 3);  -- Cliente 3
+
+
+INSERT INTO `Cargo` (`idCargo`, `Nombre`, `idTrabajador`) VALUES
+(1, 'Bodeguero', 1),   
+(2, 'Vendedor', 2),    
+(3, 'Contador', 3); 
+
+-- Insertar productos para una ferretería en la tabla Producto
+INSERT INTO `Producto` (`idProducto`, `nombre`, `precio`, `stock`) VALUES
+('P001', 'Martillo', 15000, 100),         -- Producto 1: Martillo
+('P002', 'Destornillador', 3000, 200),    -- Producto 2: Destornillador
+('P003', 'Sierra de Mano', 8000, 50),      -- Producto 3: Sierra de Mano
+('P004', 'Taladro Eléctrico', 45000, 30),  -- Producto 4: Taladro Eléctrico
+('P005', 'Pintura Interior', 12000, 80),   -- Producto 5: Pintura Interior
+('P006', 'Alicate', 5000, 150),            -- Producto 6: Alicate
+('P007', 'Llave Inglesa', 10000, 60),      -- Producto 7: Llave Inglesa
+('P008', 'Manguera de Agua', 2500, 120),   -- Producto 8: Manguera de Agua
+('P009', 'Cinta Métrica', 2000, 200),      -- Producto 9: Cinta Métrica
+('P010', 'Guantes de Trabajo', 2500, 300); -- Producto 10: Guantes de Trabajo
+
+-- Insertar ventas en la tabla Venta
+INSERT INTO `Venta` (`idDocumento`, `fecha`, `rutCliente`, `tipoDoc`, `idTrabajador`, `estado`) VALUES
+(1, '2025-05-08', '11111111-1', 'FV', 1, 'Activa'),   -- Venta 1: Factura de venta (FV)
+(2, '2025-05-08', '22222222-2', 'FV', 2, 'Cerrada'),  -- Venta 2: Factura de venta (FV)
+(3, '2025-05-08', '33333333-3', 'NV', 3, 'Activa');   -- Venta 3: Nota de venta (NV)
+
+
+-- Insertar detalles de venta en la tabla Detalle
+INSERT INTO `Detalle` (`idProducto`, `idDocumento`, `cantidad`, `metodoPago`) VALUES
+('P001', 1, 2, 'Efectivo'),    -- Venta 1: 2 Martillos pagados en efectivo
+('P002', 1, 1, 'Tarjeta'),     -- Venta 1: 1 Destornillador pagado con tarjeta
+('P003', 2, 3, 'Efectivo'),    -- Venta 2: 3 Sierras de Mano pagadas en efectivo
+('P004', 2, 1, 'Tarjeta'),     -- Venta 2: 1 Taladro Eléctrico pagado con tarjeta
+('P005', 3, 5, 'Efectivo');    -- Venta 3: 5 Pinturas Interior pagadas en efectivo
