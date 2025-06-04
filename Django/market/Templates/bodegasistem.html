@@ -24,7 +24,7 @@
         <a class="nav-link" href="#">Inicio<span class="sr-only"></span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">pedidos</a>
+
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">opción 1</a>
@@ -50,7 +50,22 @@
         <div class="card" id="miCard">
           <h4><b>John Doe</b></h4>
           <p>Architect y Engineer</p>
-
+  {% for prod in datos %}
+      
+      
+      <div class="col">
+        <div class="tarjeta card h-100 d-flex flex-column">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">{{prod.categoria.nombre}}</h5>
+            <img src="{{prod.categoria.imagen}}" alt="">
+          
+            <h5 class="card-text">ID_Pedido: ${{prod.id_boleta}}</h5>
+            <a href="#" class="btn btn-primary mt-auto">Agregar al carrito</a>
+          </div>
+        </div>
+      </div>
+      
+           {%endfor%}
           <button id="aceptar">Aceptar</button>
           <button id="rechazar">Rechazar</button>
         </div>
