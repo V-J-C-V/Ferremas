@@ -9,14 +9,21 @@ def inicio(request):
 def sistemven(request):
     return render(request, 'sistemven.html')
 
-def bodegasistem(request):
-    return render(request, 'bodegasistem.html' )
+
 
 def pago(request):
     return render( request)
 
 def obtener_categoria():
     url = "http://localhost:8088/api/Categoria"
+    try:
+        response = requests.get(url)
+        data = response.json()
+        return data
+    except  Exception as e:
+        return None
+def obtener_Detalle():
+    url = "http://localhost:8088/api/Detalle"
     try:
         response = requests.get(url)
         data = response.json()
@@ -31,7 +38,10 @@ def ver_categoria(request):
 
 # aca se supone que va la wea pa redirecionar
 
-
+def bodegasistem(request):
+    catalogo = obtener_Detalle()
+    contexto = {"datos":catalogo}
+    return render(request, 'bodegasistem.html', contexto )
 def obtener_productos():
     url = "http://localhost:8088/api/Producto"
     try:
