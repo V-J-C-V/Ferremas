@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 import requests
 
 def inicio(request):
@@ -30,7 +30,8 @@ def ver_categoria(request):
 
 # aca se supone que va la wea pa redirecionar
 
-
+def redirecionar_herramientas(request):
+    return redirect("Herramientas.html") 
 
 
 
