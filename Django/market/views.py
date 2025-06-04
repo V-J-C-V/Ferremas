@@ -1,6 +1,8 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 import requests
 from django.contrib.auth.decorators import login_required
+
+from Django.carrito.cart import Cart
 @login_required
 def inicio(request):
     return render(request, "index.html")
@@ -29,8 +31,6 @@ def ver_categoria(request):
     contexto = {"datos":catalogo}
     return render (request, "Ver_catalogo.html", contexto)
 
-# aca se supone que va la wea pa redirecionar
-
 
 def obtener_productos():
     url = "http://localhost:8088/api/Producto"
@@ -55,6 +55,36 @@ def ver_productos_p(request):
     producto = obtener_productos()
     contexto = {"datos":producto}
     return render (request, "piso.html", contexto)
+
+
+# Aca se encuentran las funciones del carrito
+
+def agregar_producto(request, producto_id):
+    cart = Cart(request)
+    producto = get_object_or_404(producto, id=producto_id)
+    cart.add(producto)
+    return redirect("ver_carrito")
+
+def eliminar_producto(request, producto_id):
+    cart = Cart(request)
+    producto = get_object_or_404(producto, id=producto_id)
+    cart.remove(producto)
+    return redirect("ver_carrito")
+
+def decrementar_producto(request, producto_id):
+    cart = Cart(request)
+    producto = get_object_or_404(producto, id=producto_id)
+    cart.decrement(producto)
+    return redirect("ver_carrito")
+
+def limpiar_carrito(request):
+    cart = Cart(request)
+    cart.clear()
+    return redirect("ver_carrito")
+
+def ver_carrito(request):
+    cart = Cart(request)
+    return render(request, "carrito.html", {"cart": cart.cart})
 
 
 

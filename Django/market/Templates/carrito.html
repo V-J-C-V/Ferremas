@@ -1,0 +1,19 @@
+<!-- tienda/templates/carrito.html -->
+<h2>Carrito de Compras</h2>
+
+{% if cart %}
+    <ul>
+        {% for key, item in cart.items %}
+            <li>
+                <img src="{{ item.imagen }}" width="50">
+                {{ item.nombre }} - Cantidad: {{ item.cantidad }} - Precio: {{ item.precio }}
+                <a href="{% url 'agregar_producto' item.producto_id %}">[+]</a>
+                <a href="{% url 'decrementar_producto' item.producto_id %}">[-]</a>
+                <a href="{% url 'eliminar_producto' item.producto_id %}">[Eliminar]</a>
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'limpiar_carrito' %}">Limpiar Carrito</a>
+{% else %}
+    <p>El carrito está vacío.</p>
+{% endif %}
