@@ -89,11 +89,10 @@ def agregar_producto(request, producto_id):
     return redirect("ver_carrito")
 
 
-def eliminar_producto(request, producto_id):
-    cart = Cart(request)
-    producto = get_object_or_404(producto, id=producto_id)
-    cart.remove(producto)
-    return redirect("ver_carrito")
+def eliminar_producto(request, codigo):
+    producto = get_object_or_404(producto, codigo=codigo)
+    producto.delete()
+    return redirect('lista_productos')
 
 def decrementar_producto(request, producto_id):
     cart = Cart(request)
