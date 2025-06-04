@@ -26,4 +26,7 @@ urlpatterns = [
     path('bodegasistem/', views.bodegasistem),
     path('pago/', views.pago),
     
+    path('index/', views.inicio, name="inicio"), 
+    path('catalogo/', views.ver_catalogo),
+
 ]
