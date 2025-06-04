@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 import requests
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
-from market.form import ProductoForm
+from market.form import ProductoForm, Usuariform
 from carrito.cart import Cart
 @login_required
 def inicio(request):
@@ -12,6 +12,43 @@ def inicio(request):
 
 def sistemven(request):
     return render(request, 'sistemven.html')
+
+
+
+def crearUsuario(request):
+    if request.method == "POST":
+        usuarioform = Usuariform(request.POST)
+        if usuarioform.is_valid():
+            datos = usuarioform.cleaned_data
+
+            payload = {
+                "email": datos["email"],
+                "contrasena": datos["contrasena"],
+            }
+
+            try:
+                response = requests.post(
+                    "http://localhost:8088/api/Usuario",
+                    json=payload
+                )
+                if response.status_code in [200, 201]:
+                    data = response.json()
+                    if data.get("id_usuario", 0) > 0:
+                        return redirect("inicio")  # Redirige si todo salió bien
+                    else:
+                        error = "La API respondió pero el usuario no fue creado correctamente (ID inválido)."
+                else:
+                    error = f"Error en la API: {response.status_code} - {response.text}"
+            except requests.exceptions.RequestException as e:
+                error = f"Error de conexión: {e}"
+
+            return render(request, "agregarUsuario.html", {"form": usuarioform, "error": error})
+        else:
+            return render(request, "agregarUsuario.html", {"form": usuarioform})
+    else:
+        usuarioform = Usuariform()
+        return render(request, "agregarUsuario.html", {"form": usuarioform})
+
 
 
 
@@ -46,7 +83,7 @@ def login(request):
                 if usuario['email'] == correo and usuario['contrasena'] == contrasena:
                     request.session['usuario_id'] = usuario['id_usuario']
                     request.session['usuario_email'] = usuario['email']  # Guardar correo en sesión
-                    return redirect('verCategoria')
+                    return redirect('ver_producto')
 
             messages.error(request, 'Correo o contraseña incorrectos.')
         except Exception as e:
@@ -73,6 +110,14 @@ def obtener_Detalle():
         return data
     except  Exception as e:
         return None
+def obtener_Cargo():
+    url = "http://localhost:8088/api/Cargo"
+    try:
+        response = requests.get(url)
+        data = response.json()
+        return data
+    except  Exception as e:
+        return None
     
 def obtener_producto_por_id(producto_id):
     productos = obtener_productos()
@@ -82,8 +127,11 @@ def obtener_producto_por_id(producto_id):
     return None
     
 def ver_categoria(request):
-    catalogo = obtener_categoria()
-    contexto = {"datos":catalogo}
+    usuario = obtener_usuario()
+    trabajador = obtener_trabajador()
+    producto = obtener_productos()
+    cargo = obtener_Cargo()
+    contexto = {"datos":producto,"us":usuario,"trab":trabajador,"car":cargo}    
     return render (request, "Ver_catalogo.html", contexto)
 
 def obtener_productos():
@@ -106,7 +154,7 @@ def crear(request):
             payload = {
                 "id_producto": datos["id_producto"],
                 "categoria": {
-                    "id_categoria": int(datos["categoria"])  # Aseguramos que sea int
+                    "id_categoria": int(datos["categoria"])
                 },
                 "nombre": datos["nombre"],
                 "imagen": datos["imagen"],
@@ -115,38 +163,63 @@ def crear(request):
             }
 
             try:
-                response = requests.post("http://localhost:8088/api/Producto", json=payload)
-                if response.status_code in [200, 201]:
-                    return redirect('ver_producto')
+                response = requests.post(
+                    "http://localhost:8088/api/Producto",
+                    json=payload
+                )
+                if response.status_code == 201:  # o 200 según tu API
+                    return redirect("nombre_de_la_vista_exito")  # redirige si todo salió bien
                 else:
-                    productoform.add_error(None, "Error en la API: " + str(response.status_code))
-            except Exception as e:
-                productoform.add_error(None, f"Error de conexión: {e}")
+                    error = f"Error en la API: {response.status_code} - {response.text}"
+            except requests.exceptions.RequestException as e:
+                error = f"Error de conexión: {e}"
+
+            return render(request, "agregarProducto.html", {"form": productoform, "error": error})
     else:
         productoform = ProductoForm()
+
+
 
     return render(request, 'agregarProducto.html', {'productoform': productoform})
 
 def ver_productos(request):
+    usuario = obtener_usuario()
+    trabajador = obtener_trabajador()
     producto = obtener_productos()
-    contexto = {"datos":producto}
+    contexto = {"datos":producto,"us":usuario,"trab":trabajador}
+
     return render (request, "Herramientas.html", contexto)
 
 def ver_bodega(request):
-    producto = obtener_Detalle()
-    contexto = {"datos":producto}
+    usuario = obtener_usuario()
+    trabajador = obtener_trabajador()
+    producto = obtener_productos()
+    cargo = obtener_Cargo()
+    contexto = {"datos":producto,"us":usuario,"trab":trabajador,"car":cargo}    
     return render (request, "bodegasistem.html", contexto)
 
 def ver_productos_m(request):
+    usuario = obtener_usuario()
+    trabajador = obtener_trabajador()
     producto = obtener_productos()
-    contexto = {"datos":producto}
+    cargo = obtener_Cargo()
+    contexto = {"datos":producto,"us":usuario,"trab":trabajador,"car":cargo}    
     return render (request, "MaterialConstruccion.html", contexto)
 
 def ver_productos_p(request):
+    usuario = obtener_usuario()
+    trabajador = obtener_trabajador()
     producto = obtener_productos()
-    contexto = {"datos":producto}
+    cargo = obtener_Cargo()
+    contexto = {"datos":producto,"us":usuario,"trab":trabajador,"car":cargo}    
     return render (request, "piso.html", contexto)
-
+def header(request):
+    usuario = obtener_usuario()
+    trabajador = obtener_trabajador()
+    producto = obtener_productos()
+    cargo = obtener_Cargo()
+    contexto = {"datos":producto,"us":usuario,"trab":trabajador,"car":cargo}    
+    return render (request, "header.html", contexto)
 
 # Aca se encuentran las funciones del carrito
 

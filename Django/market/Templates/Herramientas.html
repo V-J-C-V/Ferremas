@@ -35,6 +35,14 @@
             <img src="{{prod.imagen}}" alt="">
           
             <h5 class="card-text">Precio: ${{prod.precio}}</h5>
+                {% for item in trab  %}
+    
+
+    {% if item.usuario.email == usuario_email %}
+      <h5 class="card-text">Stock: ${{prod.stock}}</h5>
+    {% endif %}
+{% endfor %}
+          
             <a href="{% url 'agregar_producto' prod.id_producto %}" class="btn btn-primary mt-auto">Agregar al carrito</a>
           </div>
         </div>
