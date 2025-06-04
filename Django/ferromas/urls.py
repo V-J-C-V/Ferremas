@@ -22,12 +22,12 @@ from market import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('index/', views.inicio, name="inicio") ,
-    path('sistemven/', views.sistemven),
+    path('sistemven/', views.sistemven, name="Venta"),
 
     path('pago/', views.pago),
     
     path('index/', views.inicio, name="inicio"), 
-       path('bodega/', views.ver_bodega, name="Bodega"),  
+    path('bodega/', views.ver_bodega, name="Bodega"),  
     path('catalogo/', views.ver_categoria),
     path('herramientas/', views.ver_productos, name='ver_productos'),
     path('Material/', views.ver_productos_m, name='ver_productosm'),

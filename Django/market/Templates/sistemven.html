@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+{% load static %}
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -36,36 +38,54 @@
   </div>
 </nav>
 </head>
-<body>
+ 
     
   
 </head>
 <body>
-  
 
-  <main class="main">
-    <div class="container">
-
-      <div id="productosDiv">
-        <div class="card" id="miCard">
-          <h4><b>John Doe</b></h4>
-          <p>Architect y Engineer</p>
-
-          <button id="aceptar">Aceptar</button>
-          <button id="rechazar">Rechazar</button>
-        </div>
+ 
+<div class="row row-cols-1 row-cols-md-3 g-4">
+  <div class="col">
+    <div class="card h-100">
+      <img src="{% static 'martillo.png' %}" class="card-img-top" alt="Imagen Martillo">
+      <div class="card-body d-flex flex-column">
+        <h5 class="card-title">Martillo</h5>
+        <p class="card-text"> </p>
+        <button type="button" class="btn btn-success">Positivo</button>
+        <button type="button" class="btn btn-danger">Negativo</button>
       </div>
-
-      <div id="aceptadosDiv" class="hidden">
-        <h2>Aceptados</h2>
-      </div>
-
-      <div id="rechazadosDiv" class="hidden">
-        <h2>Rechazados</h2>
-      </div>
-
     </div>
-  </main>
+  </div>
+
+  <div class="col">
+    <div class="card h-100">
+      <img src="{% static 'taladro.jpg' %}" class="card-img-top" alt="Imagen Taladro">
+      <div class="card-body d-flex flex-column">
+        <h5 class="card-title">Taladro</h5>
+        <p class="card-text"> </p>
+          <button type="button" class="btn btn-success">Positivo</button>
+        <button type="button" class="btn btn-danger">Negativo</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="card h-100">
+      <img src="{% static 'ceramica.webp' %}" class="card-img-top" alt="Imagen Taladro">
+      <div class="card-body d-flex flex-column">
+        <h5 class="card-title">Ceramica de piso</h5>
+        <p class="card-text"> .</p>
+      <button type="button" class="btn btn-success">Positivo</button>
+        <button type="button" class="btn btn-danger">Negativo</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+ 
+          
+      
 
   
 </body>

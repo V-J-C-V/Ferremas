@@ -24,6 +24,7 @@ def obtener_categoria():
         return data
     except  Exception as e:
         return None
+    
 def obtener_Detalle():
     url = "http://localhost:8088/api/Detalle"
     try:
@@ -32,6 +33,7 @@ def obtener_Detalle():
         return data
     except  Exception as e:
         return None
+    
 def obtener_producto_por_id(producto_id):
     productos = obtener_productos()
     for producto in productos:
