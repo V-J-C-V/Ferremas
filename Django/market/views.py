@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 import requests
 from django.contrib.auth.decorators import login_required
 
-from carrito import cart
+from carrito.cart import Cart
 @login_required
 def inicio(request):
     return render(request, "index.html")
@@ -32,7 +32,13 @@ def obtener_Detalle():
         return data
     except  Exception as e:
         return None
-
+def obtener_producto_por_id(producto_id):
+    productos = obtener_productos()
+    for producto in productos:
+        if producto["id_producto"] == producto_id:
+            return producto
+    return None
+    
 def ver_categoria(request):
     catalogo = obtener_categoria()
     contexto = {"datos":catalogo}
@@ -47,10 +53,18 @@ def obtener_productos():
     except Exception as e:
         return None
     
+
+
+
 def ver_productos(request):
     producto = obtener_productos()
     contexto = {"datos":producto}
     return render (request, "Herramientas.html", contexto)
+
+def ver_bodega(request):
+    producto = obtener_Detalle()
+    contexto = {"datos":producto}
+    return render (request, "bodegasistem.html", contexto)
 
 def ver_productos_m(request):
     producto = obtener_productos()
@@ -66,30 +80,34 @@ def ver_productos_p(request):
 # Aca se encuentran las funciones del carrito
 
 def agregar_producto(request, producto_id):
-    cart = cart(request)
-    producto = get_object_or_404(producto, id=producto_id)
-    cart.add(producto)
+    carrito = Cart(request)
+    producto = obtener_producto_por_id(producto_id)
+    if producto is None:
+        from django.http import Http404
+        raise Http404("Producto no encontrado")
+    carrito.add(producto)
     return redirect("ver_carrito")
 
+
 def eliminar_producto(request, producto_id):
-    cart = cart(request)
+    cart = Cart(request)
     producto = get_object_or_404(producto, id=producto_id)
     cart.remove(producto)
     return redirect("ver_carrito")
 
 def decrementar_producto(request, producto_id):
-    cart = cart(request)
+    cart = Cart(request)
     producto = get_object_or_404(producto, id=producto_id)
     cart.decrement(producto)
     return redirect("ver_carrito")
 
 def limpiar_carrito(request):
-    cart = cart(request)
+    cart = Cart(request)
     cart.clear()
     return redirect("ver_carrito")
 
 def ver_carrito(request):
-    cart = cart(request)
+    cart = Cart(request)
     return render(request, "carrito.html", {"cart": cart.cart})
 
 
