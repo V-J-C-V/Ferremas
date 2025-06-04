@@ -16,4 +16,4 @@ def obtener_categoria():
 def ver_categoria(request):
     catalogo = obtener_categoria()
     contexto = {"datos":catalogo}
-    return render (request, "Ver_catalogo.html", contexto )
+    return render (request, "Ver_catalogo.html", contexto)
