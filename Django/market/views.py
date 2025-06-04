@@ -4,8 +4,8 @@ import requests
 def inicio(request):
     return render(request, "index.html")
 
-def obtener_catalogo():
-    url = "http://127.0.0.1:8088/api/Trabajador/"
+def obtener_categoria():
+    url = "http://127.0.0.1:8088/api/Categoria/"
     try:
         response = requests.json(url)
         data = response.json()
@@ -13,7 +13,7 @@ def obtener_catalogo():
     except  Exception as e:
         return None
 
-def ver_catalogo(request):
-    catalogo = obtener_catalogo()
+def ver_categoria(request):
+    catalogo = obtener_categoria()
     contexto = {"datos":catalogo}
     return render (request, "Ver_catalogo.html", contexto )
