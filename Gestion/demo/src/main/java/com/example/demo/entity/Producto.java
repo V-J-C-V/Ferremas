@@ -16,6 +16,7 @@ public class Producto {
     private Categoria categoria;
     private String nombre;
     private String imagen;
+   
     private int precio;
     private int stock;
     public Producto() {

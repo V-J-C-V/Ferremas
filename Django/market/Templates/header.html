@@ -1,0 +1,34 @@
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="ver_catalogo.html">FERREMAS</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'ver_productos' %}">Productos <span class="sr-only"></span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'ver_productosm' %}">herramientas</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'ver_productosp' %}">piso</a>
+      </li>
+            <li class="nav-item">
+        <a class="nav-link" href="{% url 'ver_carrito' %}">Carro de compras</a>
+      </li>
+         {% if usuario_email %}
+      <li <li class="nav-item"> >
+      <a class="nav-link ">{{ usuario_email }}!</a>
+{% else %}
+  <p>No has iniciado sesión.</p>
+{% endif %}
+
+       
+      </li>
+      
+    </ul>
+  </div>
+</nav>
+{% block content %}    {% endblock %}

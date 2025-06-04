@@ -1,4 +1,6 @@
+  {%extends "header.html" %}
 <!DOCTYPE html>
+{%block content%}
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -14,11 +16,7 @@
       height: auto;
     }
   </style>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container">
-    <a class="navbar-brand" href="ver_catalogo.html">Home</a>
-  </div>
-</nav>
+
 </head>
 <body>
   <div class="container p-3 contenedor">
@@ -43,6 +41,6 @@
       </div>
       {% endif %}
            {%endfor%}
-
+{% endblock%}
 </body>
 </html>

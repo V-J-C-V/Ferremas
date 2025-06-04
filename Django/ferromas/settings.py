@@ -57,10 +57,11 @@ ROOT_URLCONF = 'ferromas.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['market/Templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                'market.context_processors.usuario_email',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',

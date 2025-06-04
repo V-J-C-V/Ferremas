@@ -1,19 +1,88 @@
-<!-- tienda/templates/carrito.html -->
-<h2>Carrito de Compras</h2>
+  {%extends "header.html" %}
+<!DOCTYPE html>
+{%block content%}
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de Compras</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #ffffff; /* Fondo blanco */
+            font-family: 'Inter', sans-serif; /* Fuente Inter o una fuente sans-serif estándar de Bootstrap */
+        }
+        .cart-item-image {
+            width: 50px; /* Ancho de la imagen como en tu original */
+            height: auto; /* Alto automático para mantener la proporción */
+            object-fit: cover;
+            border-radius: 0.25rem; /* Bordes redondeados suaves */
+            margin-right: 15px; /* Espacio a la derecha de la imagen */
+        }
+        .list-group-item {
+            /* Estilos para cada ítem del carrito */
+            border-radius: 0.375rem; /* Bordes un poco más redondeados */
+            margin-bottom: 0.5rem; /* Espacio entre ítems */
+            /* Sombra sutil opcional, puedes quitarla si prefieres un look más plano */
+            /* box-shadow: 0 1px 3px rgba(0,0,0,0.05); */
+        }
+        .action-links a {
+            margin-left: 8px; /* Espacio entre los enlaces de acción */
+        }
+        .product-details {
+            flex-grow: 1; /* Permite que los detalles del producto ocupen el espacio disponible */
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5 mb-5">
+        <h2 class="mb-4 text-center">Carrito de Compras</h2>
 
-    {% if cart %}
-        <ul>
-            {% for key, item in cart.items %}
-                <li>
-                    <img src="{{ item.imagen }}" width="50">
-                    {{ item.nombre }} - Cantidad: {{ item.cantidad }} - Precio: {{ item.precio }}
-                    <a href="{% url 'agregar_producto' item.producto_id %}">[+]</a>
-                    <a href="{% url 'decrementar_producto' item.producto_id %}">[-]</a>
-                    <a href="{% url 'eliminar_producto' item.producto_id %}">[Eliminar]</a>
+        {% if cart %}
+            <ul class="list-group mb-4">
+                {% for key, item in cart.items %}
+                <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap p-3">
+                    <div class="d-flex align-items-center product-details mb-2 mb-md-0">
+                        <!-- Imagen del Producto -->
+                        <img src="{{ item.imagen | default:'https://placehold.co/50x50/e2e8f0/333?text=Img' }}"
+                             alt="{{ item.nombre }}"
+                             class="cart-item-image"
+                             onerror="this.onerror=null;this.src='https://placehold.co/50x50/e2e8f0/333?text=Error';">
+                        <!-- Detalles del Producto -->
+                        <div>
+                            <span class="font-weight-bold">{{ item.nombre }}</span> -
+                            Cantidad: {{ item.cantidad }} -
+                            Precio: ${{ item.precio|floatformat:2 }}
+                        </div>
+                    </div>
+
+                    <!-- Enlaces de Acción -->
+                    <div class="action-links mt-2 mt-md-0">
+                        <a href="{% url 'agregar_producto' item.producto_id %}" class="btn btn-sm btn-success" title="Aumentar cantidad">[+]</a>
+                        <a href="{% url 'decrementar_producto' item.producto_id %}" class="btn btn-sm btn-warning" title="Disminuir cantidad">[-]</a>
+                        <a href="{% url 'eliminar_producto' item.producto_id %}" class="btn btn-sm btn-danger" title="Eliminar producto">[Eliminar]</a>
+                    </div>
                 </li>
-            {% endfor %}
-        </ul>
-        <a href="{% url 'limpiar_carrito' %}">Limpiar Carrito</a>
-    {% else %}
-        <p>El carrito está vacío.</p>
-    {% endif %}
+                {% endfor %}
+            </ul>
+
+            <div class="text-right">
+                <a href="{% url 'limpiar_carrito' %}" class="btn btn-outline-danger">Limpiar Carrito</a>
+            </div>
+
+        {% else %}
+            <div class="alert alert-info text-center" role="alert">
+                <p class="mb-0">El carrito está vacío.</p>
+            </div>
+  
+        {% endif %}
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+{%endblock%}
+</html>

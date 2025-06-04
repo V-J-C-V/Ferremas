@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Agregar Producto</title>
+    <!-- Bootstrap CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+<div class="container mt-5">
+    <h1 class="mb-4">Agregar Producto</h1>
+
+    <!-- Mostrar errores no relacionados a campos -->
+    {% if productoform.non_field_errors %}
+    <div class="alert alert-danger">
+        <ul class="mb-0">
+            {% for error in productoform.non_field_errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
+    <form method="post" novalidate>
+        {% csrf_token %}
+
+        <div class="mb-3">
+            {{ productoform.id_producto.label_tag }}
+            {{ productoform.id_producto }}
+            {% if productoform.id_producto.errors %}
+                <div class="text-danger">
+                    {{ productoform.id_producto.errors.as_text }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="mb-3">
+            {{ productoform.nombre.label_tag }}
+            {{ productoform.nombre }}
+            {% if productoform.nombre.errors %}
+                <div class="text-danger">
+                    {{ productoform.nombre.errors.as_text }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="mb-3">
+            {{ productoform.precio.label_tag }}
+            {{ productoform.precio }}
+            {% if productoform.precio.errors %}
+                <div class="text-danger">
+                    {{ productoform.precio.errors.as_text }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="mb-3">
+            {{ productoform.stock.label_tag }}
+            {{ productoform.stock }}
+            {% if productoform.stock.errors %}
+                <div class="text-danger">
+                    {{ productoform.stock.errors.as_text }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="mb-3">
+            {{ productoform.imagen.label_tag }}
+            {{ productoform.imagen }}
+            {% if productoform.imagen.errors %}
+                <div class="text-danger">
+                    {{ productoform.imagen.errors.as_text }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="mb-3">
+            {{ productoform.categoria.label_tag }}
+            {{ productoform.categoria }}
+            {% if productoform.categoria.errors %}
+                <div class="text-danger">
+                    {{ productoform.categoria.errors.as_text }}
+                </div>
+            {% endif %}
+        </div>
+
+        <button type="submit" class="btn btn-primary">Guardar Producto</button>
+    </form>
+</div>
+
+<!-- Bootstrap JS Bundl
