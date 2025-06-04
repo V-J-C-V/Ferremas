@@ -28,5 +28,6 @@ urlpatterns = [
     
     path('index/', views.inicio, name="inicio"), 
     path('catalogo/', views.ver_categoria),
+    path('productos/', views.ver_productos),
 
 ]
