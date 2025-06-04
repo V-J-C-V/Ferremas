@@ -28,6 +28,7 @@ urlpatterns = [
     
     path('index/', views.inicio, name="inicio"), 
     path('catalogo/', views.ver_categoria),
-    path('productos/', views.ver_productos),
+     path('herramientas/', views.ver_productos, name='ver_productos'),
+      path('redir-herramientas/', views.redirecionar_herramientas, name='redirecionar_herramientas'),
 
 ]

@@ -8,5 +8,6 @@ urlpatterns = [
     path('sistemven/', views.sistemven),
     path('bodegasistem/', views.bodegasistem),
     path('pago/', views.pago),
+  
 ]
     
