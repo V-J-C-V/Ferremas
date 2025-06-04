@@ -30,10 +30,6 @@ def ver_categoria(request):
 
 # aca se supone que va la wea pa redirecionar
 
-def redirecionar_herramientas(request):
-    return redirect("Herramientas.html") 
-
-
 
 def obtener_productos():
     url = "http://localhost:8088/api/Producto"
@@ -48,6 +44,17 @@ def ver_productos(request):
     producto = obtener_productos()
     contexto = {"datos":producto}
     return render (request, "Herramientas.html", contexto)
+
+def ver_productos_m(request):
+    producto = obtener_productos()
+    contexto = {"datos":producto}
+    return render (request, "MaterialConstruccion.html", contexto)
+
+def ver_productos_p(request):
+    producto = obtener_productos()
+    contexto = {"datos":producto}
+    return render (request, "piso.html", contexto)
+
 
 
 
