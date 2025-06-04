@@ -19,9 +19,7 @@
         <h2>¿A qué categoría quiere acceder?</h2>
     </div>
 
-    { % for cat in datos %}    
-        <h1> {{cat.nombre}}</h1>
-    {% endfor %}
+
 
     <div class="container contenedor">
         <div class="row align-items-stretch g-4"> <!-- g-4 agrega separación entre columnas -->
@@ -33,6 +31,12 @@
                         <img src="https://cdnx.jumpseller.com/my-toolbox-chile/image/22420315/kit_Redline.webp?1646768253" alt="">
                         <p class="card-text">En esta sección podrá encontrar todo tipo de herramientas.</p>
                         <a href="#" class="btn btn-primary mt-auto">Ir a herramientas</a>
+                        {% for cat in datos %}
+  {% if cat.id_categoria == 1 %}
+    <h2>{{ cat.nombre }}</h2>
+
+  {% endif %}
+{% endfor %}
                     </div>
                 </div>
             </div>
