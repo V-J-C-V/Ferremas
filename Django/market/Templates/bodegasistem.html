@@ -26,12 +26,7 @@
       <li class="nav-item">
 
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">opción 1</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link " href="#">opción 2</a>
-      </li>
+     
     </ul>
   </div>
 </nav>
@@ -48,8 +43,8 @@
 
       <div id="productosDiv">
         <div class="card" id="miCard">
-          <h4><b>John Doe</b></h4>
-          <p>Architect y Engineer</p>
+          <h4><b>Bodega </b></h4>
+     
   {% for prod in datos %}
       
       
@@ -60,23 +55,13 @@
             <img src="{{prod.categoria.imagen}}" alt="">
           
             <h5 class="card-text">ID_Pedido: ${{prod.id_boleta}}</h5>
-            <a href="#" class="btn btn-primary mt-auto">Agregar al carrito</a>
+           
           </div>
         </div>
       </div>
       
            {%endfor%}
-          <button id="aceptar">Aceptar</button>
-          <button id="rechazar">Rechazar</button>
-        </div>
-      </div>
-
-      <div id="aceptadosDiv" class="hidden">
-        <h2>Aceptados</h2>
-      </div>
-
-      <div id="rechazadosDiv" class="hidden">
-        <h2>Rechazados</h2>
+          
       </div>
 
     </div>

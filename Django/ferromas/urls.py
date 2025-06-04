@@ -21,14 +21,24 @@ from market import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+<<<<<<< HEAD
     path('index/', views.login, name="inicio") ,
     path('sistemven/', views.sistemven),
+=======
+    path('index/', views.inicio, name="inicio") ,
+    path('sistemven/', views.sistemven, name="Venta"),
+>>>>>>> ea6894071ca8d1cd2fb60a49a24b85e55ec14d52
 
     path('pago/', views.pago),
       path('agregarProducto/', views.crear, name="agregar"),
     path('index/', views.inicio, name="inicio"), 
+<<<<<<< HEAD
        path('bodega/', views.ver_bodega, name="Bodega"),  
     path('catalogo/', views.ver_categoria, name="ver_producto"),
+=======
+    path('bodega/', views.ver_bodega, name="Bodega"),  
+    path('catalogo/', views.ver_categoria),
+>>>>>>> ea6894071ca8d1cd2fb60a49a24b85e55ec14d52
     path('herramientas/', views.ver_productos, name='ver_productos'),
     path('Material/', views.ver_productos_m, name='ver_productosm'),
     path('Piso/', views.ver_productos_p, name='ver_productosp'),
