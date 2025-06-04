@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 import requests
 from django.contrib.auth.decorators import login_required
 
-from Django.carrito.cart import Cart
+from carrito import cart
 @login_required
 def inicio(request):
     return render(request, "index.html")
@@ -66,30 +66,30 @@ def ver_productos_p(request):
 # Aca se encuentran las funciones del carrito
 
 def agregar_producto(request, producto_id):
-    cart = Cart(request)
+    cart = cart(request)
     producto = get_object_or_404(producto, id=producto_id)
     cart.add(producto)
     return redirect("ver_carrito")
 
 def eliminar_producto(request, producto_id):
-    cart = Cart(request)
+    cart = cart(request)
     producto = get_object_or_404(producto, id=producto_id)
     cart.remove(producto)
     return redirect("ver_carrito")
 
 def decrementar_producto(request, producto_id):
-    cart = Cart(request)
+    cart = cart(request)
     producto = get_object_or_404(producto, id=producto_id)
     cart.decrement(producto)
     return redirect("ver_carrito")
 
 def limpiar_carrito(request):
-    cart = Cart(request)
+    cart = cart(request)
     cart.clear()
     return redirect("ver_carrito")
 
 def ver_carrito(request):
-    cart = Cart(request)
+    cart = cart(request)
     return render(request, "carrito.html", {"cart": cart.cart})
 
 
