@@ -19,13 +19,14 @@
         <h2>¿A qué categoría quiere acceder?</h2>
     </div>
 
+    { % for cat in datos %}    
     <div class="container contenedor">
         <div class="row align-items-stretch g-4"> <!-- g-4 agrega separación entre columnas -->
             
             <div class="col-md-4">
                 <div class="tarjeta card h-100 d-flex flex-column">
                     <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">Herramientas</h5>
+                        <h5 class="card-title">{{cat.nombre}}</h5>
                         <img src="https://cdnx.jumpseller.com/my-toolbox-chile/image/22420315/kit_Redline.webp?1646768253" alt="">
                         <p class="card-text">En esta sección podrá encontrar todo tipo de herramientas.</p>
                         <a href="#" class="btn btn-primary mt-auto">Ir a herramientas</a>
@@ -36,7 +37,7 @@
             <div class="col-md-4">
                 <div class="tarjeta card h-100 d-flex flex-column">
                     <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">Material de construcción</h5>
+                        <h5 class="card-title">{{cat.nombre}}</h5>
                         <img src="https://constructiva.gumlet.io/wp-content/uploads/2023/09/Diseno-sin-titulo-2-2-1024x569.png?compress=true&quality=80&w=1024&dpr=2.6" alt="">
                         <p class="card-text">Materiales de calidad para sus proyectos de construcción.</p>
                         <a href="#" class="btn btn-primary mt-auto">Ir a material de construcción</a>
@@ -47,7 +48,7 @@
             <div class="col-md-4">
                 <div class="tarjeta card h-100 d-flex flex-column">
                     <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">Piso</h5>
+                        <h5 class="card-title">{{cat.nombre}}</h5>
                         <img src="https://vinisol.com.co/wp-content/uploads/2021/09/materiales-pisos.jpg" alt="">
                         <p class="card-text">Encuentre pisos resistentes, elegantes y funcionales.</p>
                         <a href="Herramientas.html" class="btn btn-primary mt-auto">Ir a piso</a>
@@ -57,5 +58,8 @@
 
         </div>
     </div>
+
+    {% endfor %}
+
 </body>
 </html>

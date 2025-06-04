@@ -21,5 +21,7 @@ from market import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('index/', views.inicio, name="inicio") 
+    path('index/', views.inicio, name="inicio"), 
+    path('catalogo/', views.ver_catalogo),
+
 ]
