@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vendedor</title>
+  <link rel="stylesheet" href="{% static '/ven.css' %}">
+  
+</head>
+<body>
+  <header class="header">
+    <div class="container logo-nav-container">
+      <a href="#" class="logo">FERREMARKX</a>
+      <nav class="navigation">
+        <ul>
+          <li><a href="#" id="inicio">Inicio</a></li>
+          <li><a href="#" id="productos">Productos</a></li>
+          <li><a href="#" id="aceptadosBtn">Aceptados</a></li>
+          <li><a href="#" id="rechazadosBtn">Rechazados</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="container">
+
+      <div id="productosDiv">
+        <div class="card" id="miCard">
+          <h4><b>John Doe</b></h4>
+          <p>Architect y Engineer</p>
+
+          <button id="aceptar">Aceptar</button>
+          <button id="rechazar">Rechazar</button>
+        </div>
+      </div>
+
+      <div id="aceptadosDiv" class="hidden">
+        <h2>Aceptados</h2>
+      </div>
+
+      <div id="rechazadosDiv" class="hidden">
+        <h2>Rechazados</h2>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    // agarrar todo lo del html
+    let productosDiv = document.getElementById("productosDiv");
+    let aceptadosDiv = document.getElementById("aceptadosDiv");
+    let rechazadosDiv = document.getElementById("rechazadosDiv");
+
+    let btnInicio = document.getElementById("inicio");
+    let btnProductos = document.getElementById("productos");
+    let btnAceptados = document.getElementById("aceptadosBtn");
+    let btnRechazados = document.getElementById("rechazadosBtn");
+
+    let miCard = document.getElementById("miCard");
+    let btnAceptar = document.getElementById("aceptar");
+    let btnRechazar = document.getElementById("rechazar");
+
+    // estas funciones ocultan todo y solo muestran lo que se presionaste (admito la ayuda de la ia para guiarme sobre el remove y eso)
+
+    function mostrarProductos() {
+      productosDiv.classList.remove("hidden");
+      aceptadosDiv.classList.add("hidden");
+      rechazadosDiv.classList.add("hidden");
+    }
+
+    function mostrarAceptados() {
+      productosDiv.classList.add("hidden");
+      aceptadosDiv.classList.remove("hidden");
+      rechazadosDiv.classList.add("hidden");
+    }
+
+    function mostrarRechazados() {
+      productosDiv.classList.add("hidden");
+      aceptadosDiv.classList.add("hidden");
+      rechazadosDiv.classList.remove("hidden");
+    }
+
+    function ocultarTodo() {
+      productosDiv.classList.add("hidden");
+      aceptadosDiv.classList.add("hidden");
+      rechazadosDiv.classList.add("hidden");
+    }
+
+    // cuando se hace clic en los headers
+    btnInicio.addEventListener("click", function(e) {
+      e.preventDefault();
+      ocultarTodo();
+    });
+
+    btnProductos.addEventListener("click", function(e) {
+      e.preventDefault();
+      mostrarProductos();
+    });
+
+    btnAceptados.addEventListener("click", function(e) {
+      e.preventDefault();
+      mostrarAceptados();
+    });
+
+    btnRechazados.addEventListener("click", function(e) {
+      e.preventDefault();
+      mostrarRechazados();
+    });
+
+    // esto manda la card a aceptado 
+    btnAceptar.addEventListener("click", function() {
+      btnAceptar.style.display = "none";
+      btnRechazar.style.display = "none";
+      aceptadosDiv.appendChild(miCard);
+      mostrarAceptados();
+    });
+
+    // y esto a rechazado
+    btnRechazar.addEventListener("click", function() {
+      btnAceptar.style.display = "none";
+      btnRechazar.style.display = "none";
+      rechazadosDiv.appendChild(miCard);
+      mostrarRechazados();
+    });
+
+    // esto meustra productos 
+    mostrarProductos();
+  </script>
+</body>
+</html>

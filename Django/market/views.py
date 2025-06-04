@@ -4,6 +4,16 @@ import requests
 def inicio(request):
     return render(request, "index.html")
 
+
+def sistemven(request):
+    return render(request, 'sistemven.html')
+
+def bodegasistem(request):
+    return render(request, 'bodegasistem.html' )
+
+def pago(request):
+    return render( request)
+
 def obtener_categoria():
     url = "http://127.0.0.1:8088/api/Categoria/"
     try:
