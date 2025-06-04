@@ -22,60 +22,20 @@
 
   <div class="container contenedor">
     <div class="row row-cols-1 row-cols-md-3 g-4"> <!-- Distribución responsiva y espaciado -->
-
+  {% for prod in datos %}
       <!-- Martillo -->
       <div class="col">
         <div class="tarjeta card h-100 d-flex flex-column">
           <div class="card-body d-flex flex-column">
-            <h5 class="card-title">Martillo</h5>
-            <img src="https://rgm.vtexassets.com/arquivos/ids/156235/Martillo.png?v=638554617786370000" alt="">
-            <p class="card-text">Martillo carpintero 16oz</p>
-            <h5 class="card-text">Precio: $$$ (INSERTE PRECIO DESDE BD)</h5>
+            <h5 class="card-title">{{prod.nombre}}</h5>
+            <img src="{{prod.imagen}}" alt="">
+          
+            <h5 class="card-text">Precio: $$${{prod.precio}}</h5>
             <a href="#" class="btn btn-primary mt-auto">Agregar al carrito</a>
           </div>
         </div>
       </div>
+           {%endfor%}
 
-      <!-- Destornillador -->
-      <div class="col">
-        <div class="tarjeta card h-100 d-flex flex-column">
-          <div class="card-body d-flex flex-column">
-            <h5 class="card-title">Destornillador</h5>
-            <img src="https://res.cloudinary.com/rsc/image/upload/b_rgb:FFFFFF,c_pad,dpr_1.0,f_auto,q_auto,w_700/c_pad,w_700/Y1829689-01" alt="">
-            <p class="card-text">Destornillador estándar RS PRO</p>
-            <h5 class="card-text">Precio: $$$ (INSERTE PRECIO DESDE BD)</h5>
-            <a href="#" class="btn btn-primary mt-auto">Agregar al carrito</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Sierra de Mano -->
-      <div class="col">
-        <div class="tarjeta card h-100 d-flex flex-column">
-          <div class="card-body d-flex flex-column">
-            <h5 class="card-title">Sierra de Mano</h5>
-            <img src="https://media.witglobal.net/source/eshop/stmedia/0100/images/std.lang.all/resolutions/category/576px/528474491.jpg" alt="">
-            <p class="card-text">Sierra de mano con mango de madera</p>
-            <h5 class="card-text">Precio: $$$ (INSERTE PRECIO DESDE BD)</h5>
-            <a href="#" class="btn btn-primary mt-auto">Agregar al carrito</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Taladro -->
-      <div class="col">
-        <div class="tarjeta card h-100 d-flex flex-column">
-          <div class="card-body d-flex flex-column">
-            <h5 class="card-title">Taladro Eléctrico</h5>
-            <img src="https://media.falabella.com/sodimacCL/7404727_01/w=800,h=800,fit=pad" alt="">
-            <p class="card-text">Taladro percutor eléctrico 13 mm 750w</p>
-            <h5 class="card-text">Precio: $$$ (INSERTE PRECIO DESDE BD)</h5>
-            <a href="#" class="btn btn-primary mt-auto">Agregar al carrito</a>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
 </body>
 </html>
