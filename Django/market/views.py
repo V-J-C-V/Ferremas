@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render
 import requests
-
+from django.contrib.auth.decorators import login_required
+@login_required
 def inicio(request):
     return render(request, "index.html")
 
