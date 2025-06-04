@@ -23,7 +23,8 @@
   <div class="container contenedor">
     <div class="row row-cols-1 row-cols-md-3 g-4"> <!-- Distribución responsiva y espaciado -->
   {% for prod in datos %}
-      <!-- Martillo -->
+      
+      {% if prod.id_categoria == 1 %}
       <div class="col">
         <div class="tarjeta card h-100 d-flex flex-column">
           <div class="card-body d-flex flex-column">
@@ -35,6 +36,7 @@
           </div>
         </div>
       </div>
+      {% endif %}
            {%endfor%}
 
 </body>
