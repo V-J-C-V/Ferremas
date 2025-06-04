@@ -24,53 +24,15 @@
   <div class="container contenedor">
     <div class="row row-cols-1 row-cols-md-3 g-4"> <!-- Distribución responsiva y espaciado -->
 
-      <!-- Cerámica Beige -->
-      <div class="col">
-        <div class="tarjeta card h-100 d-flex flex-column">
-          <div class="card-body d-flex flex-column">
-            <h5 class="card-title">Cerámica Beige</h5>
-            <img src="https://media.falabella.com/sodimacCL/6787053_1/w=800,h=800,fit=pad" alt="">
-            <p class="card-text">Cerámica 60x60 cm Pavia Beige 2.58 m2</p>
-            <h5 class="card-text">Precio: $$$ (INSERTE PRECIO DESDE BD)</h5>
-            <a href="#" class="btn btn-primary mt-auto">Agregar al carrito</a>
-          </div>
-        </div>
-      </div>
+    {% for prod in datos %}
 
-      <!-- Porcelanato Blanco -->
+      {% if prod.categoria.id_categoria == 3 %}
       <div class="col">
         <div class="tarjeta card h-100 d-flex flex-column">
           <div class="card-body d-flex flex-column">
-            <h5 class="card-title">Porcelanato Blanco</h5>
-            <img src="https://media.falabella.com/sodimacCL/8708959_01/w=1500,h=1500,fit=pad" alt="">
-            <p class="card-text">Porcelanato 30x60 cm 1,44 m2</p>
-            <h5 class="card-text">Precio: $$$ (INSERTE PRECIO DESDE BD)</h5>
-            <a href="#" class="btn btn-primary mt-auto">Agregar al carrito</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Vinílico Imitación Madera -->
-      <div class="col">
-        <div class="tarjeta card h-100 d-flex flex-column">
-          <div class="card-body d-flex flex-column">
-            <h5 class="card-title">Vinílico Imitación Madera</h5>
-            <img src="https://media.falabella.com/sodimacCL/6153364_001/w=800,h=800,fit=pad" alt="">
-            <p class="card-text">Piso Vinílico 2 mm 16x92 cm Happiness Roble 3.34 m2 </p>
-            <h5 class="card-text">Precio: $$$ (INSERTE PRECIO DESDE BD)</h5>
-            <a href="#" class="btn btn-primary mt-auto">Agregar al carrito</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Alfombra Modular -->
-      <div class="col">
-        <div class="tarjeta card h-100 d-flex flex-column">
-          <div class="card-body d-flex flex-column">
-            <h5 class="card-title">Alfombra Modular</h5>
-            <img src="https://r.bolder.run/3921/original/922352-NEGRO_%28924%29.jpg" alt="">
-            <p class="card-text">Alfombra Modular 50 x 50</p>
-            <h5 class="card-text">Precio: $$$ (INSERTE PRECIO DESDE BD)</h5>
+            <h5 class="card-title">{{prod.nombre}}</h5>
+            <img src="{{prod.imagen}}" alt="">
+            <h5 class="card-text">Precio: ${{prod.precio}}</h5>
             <a href="#" class="btn btn-primary mt-auto">Agregar al carrito</a>
           </div>
         </div>
