@@ -178,4 +178,4 @@ CREATE USER 'Usuario'@'localhost' IDENTIFIED BY '123';
 GRANT ALL PRIVILEGES ON *.* TO 'Usuario'@'localhost' WITH GRANT OPTION;
 
 -- Aplicar los cambios
-FLUSH PRIVILEGES;
+FLUSH PRIVILEGES; 

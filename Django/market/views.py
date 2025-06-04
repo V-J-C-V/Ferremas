@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404, redirect, render
 import requests
 from django.contrib.auth.decorators import login_required
-
+from django.http import Http404
 from carrito.cart import Cart
 @login_required
 def inicio(request):
@@ -91,14 +91,21 @@ def agregar_producto(request, producto_id):
     return redirect("ver_carrito")
 
 
-def eliminar_producto(request, codigo):
-    producto = get_object_or_404(producto, codigo=codigo)
-    producto.delete()
-    return redirect('lista_productos')
 
+
+def eliminar_producto(request, producto_id):
+    carrito = Cart(request)
+    producto = obtener_producto_por_id(producto_id)
+    if producto is None:
+        raise Http404("Producto no encontrado")
+    carrito.remove(producto)
+    return redirect("ver_carrito")
 def decrementar_producto(request, producto_id):
     cart = Cart(request)
-    producto = get_object_or_404(producto, id=producto_id)
+    producto = obtener_producto_por_id(producto_id)  # Aquí obtienes el producto
+    if producto is None:
+      
+        raise Http404("Producto no encontrado")
     cart.decrement(producto)
     return redirect("ver_carrito")
 
