@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,6 +15,8 @@ import org.springframework.web.server.ResponseStatusException;
 import com.example.demo.entity.Cargo;
 import com.example.demo.entity.Cliente;
 import com.example.demo.repository.ClienteRepository;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -47,6 +51,27 @@ public Cliente BuscarClientePorId(@PathVariable String id){
         Cliente  clienteGuardado = clienteRepository.save(cliente);
         return ResponseEntity.ok(clienteGuardado);
     }
+
+
+
+
+      @DeleteMapping("/{id}")
+public ResponseEntity<Map<String, String>> EliminarUsuario(@PathVariable String id){
+    if (!clienteRepository.existsById(id)) {
+        throw new ResponseStatusException(
+            HttpStatus.NOT_FOUND,
+            "No encontrado"
+        );
+
+    }
+    clienteRepository.deleteById(id);
+    Map<String, String> respuesta = new HashMap();
+    respuesta.put("Mensaje", "Cliente eliminado");
+    respuesta.put("Id Cliente", id.toString());
+    return ResponseEntity.ok(respuesta);
+    
+    
+}
 
 @PutMapping("/{id}")
 public ResponseEntity<Cliente> ActualizarCliente(@PathVariable String id, @RequestBody Cliente clienteactualizar){
