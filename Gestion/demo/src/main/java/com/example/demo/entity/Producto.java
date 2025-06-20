@@ -16,6 +16,7 @@ public class Producto {
     private Categoria categoria;
     private String nombre;
     private String imagen;
+    private String marca;
    
     private int precio;
     private int stock;
@@ -45,6 +46,12 @@ public class Producto {
     public void setImagen(String imagen) {
         this.imagen = imagen;
     }
+    public String getMarca() {
+        return marca;
+    }
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
     public int getPrecio() {
         return precio;
     }
@@ -58,4 +65,5 @@ public class Producto {
         this.stock = stock;
     }
 
+    
 }

@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.example.demo.entity.Cliente;
 import com.example.demo.entity.Detalle;
 import com.example.demo.repository.DetalleRepository;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
@@ -40,5 +42,29 @@ public class DetalleController {
         Detalle nuevoDetalle = detalleRepository.save(detalle);
         return ResponseEntity.ok(nuevoDetalle);
     }  
+
+
+    @PutMapping("/{id}")
+public ResponseEntity<Detalle> DetallePut(@PathVariable int id, @RequestBody Detalle detalleactualizar){
+
+    Detalle detalleExistente = detalleRepository.findById(id)
+    .orElseThrow(() -> new ResponseStatusException(
+
+    HttpStatus.NOT_FOUND,
+    "No se encontro"
+    ));
+
+
+    detalleExistente.setCantidad(detalleactualizar.getCantidad());
+    detalleExistente.setId_boleta(detalleactualizar.getId_boleta());
+    detalleExistente.setMetodoPago(detalleactualizar.getMetodoPago());
+    detalleExistente.setProducto(detalleactualizar.getProducto());
+    detalleExistente.setTrabajador(detalleactualizar.getTrabajador());
+    detalleExistente.setVenta(detalleactualizar.getVenta());
+    
+
+    Detalle detalleGuardado = detalleRepository.save(detalleExistente);
+    return ResponseEntity.ok(detalleGuardado);
+}
 
 }

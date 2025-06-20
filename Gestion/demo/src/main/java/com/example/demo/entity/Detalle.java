@@ -15,8 +15,13 @@ private Producto producto;
 @ManyToOne
 @JoinColumn(name = "id_documento")  
 private Venta venta;
+@ManyToOne
+@JoinColumn(name = "id_trabajador")
+private Trabajador trabajador;
 private int cantidad;
 private String metodoPago;
+
+
 public Detalle() {
 }
 public int getId_boleta() {
@@ -36,6 +41,12 @@ public Venta getVenta() {
 }
 public void setVenta(Venta venta) {
     this.venta = venta;
+}
+public Trabajador getTrabajador() {
+    return trabajador;
+}
+public void setTrabajador(Trabajador trabajador) {
+    this.trabajador = trabajador;
 }
 public int getCantidad() {
     return cantidad;

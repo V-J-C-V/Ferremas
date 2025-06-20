@@ -20,6 +20,7 @@ private Cliente cliente;
 
 
 private String tipo_doc;
+private int total;
 
 
 @ManyToOne
@@ -28,11 +29,13 @@ private Trabajador trabajador;
 private String estado;
 public Venta() {
 }
-public Venta(int id_documento, LocalDate fecha, Cliente cliente, String tipo_doc, Trabajador trabajador, String estado) {
+public Venta(int id_documento, LocalDate fecha, Cliente cliente, String tipo_doc, int total, Trabajador trabajador,
+        String estado) {
     this.id_documento = id_documento;
     this.fecha = fecha;
     this.cliente = cliente;
     this.tipo_doc = tipo_doc;
+    this.total = total;
     this.trabajador = trabajador;
     this.estado = estado;
 }
@@ -54,11 +57,17 @@ public Cliente getCliente() {
 public void setCliente(Cliente cliente) {
     this.cliente = cliente;
 }
-public String getTipoDoc() {
+public String getTipo_doc() {
     return tipo_doc;
 }
-public void setTipoDoc(String tipoDoc) {
-    this.tipo_doc = tipoDoc;
+public void setTipo_doc(String tipo_doc) {
+    this.tipo_doc = tipo_doc;
+}
+public int getTotal() {
+    return total;
+}
+public void setTotal(int total) {
+    this.total = total;
 }
 public Trabajador getTrabajador() {
     return trabajador;
@@ -72,5 +81,6 @@ public String getEstado() {
 public void setEstado(String estado) {
     this.estado = estado;
 }
+
 
 }
