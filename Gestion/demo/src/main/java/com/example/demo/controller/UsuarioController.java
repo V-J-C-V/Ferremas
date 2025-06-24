@@ -70,6 +70,7 @@ public ResponseEntity<Map<String, String>> EliminarUsuario(@PathVariable Integer
     }
 
 
+
     @PutMapping("/{id}")
 public ResponseEntity<Usuario> UsuarioPut(@PathVariable int id, @RequestBody Usuario usuarioActualizar){
 
@@ -87,5 +88,4 @@ usuarioExistente.setId_usuario(usuarioActualizar.getId_usuario());
     Usuario usuarioGuardado = usuarioRepository.save(usuarioExistente);
     return ResponseEntity.ok(usuarioGuardado);
 }
-
 }
